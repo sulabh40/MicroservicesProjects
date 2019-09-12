@@ -9,31 +9,35 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @RestController
 @RequestMapping("/rest/user")
 public class UserResource {
 
 	@GetMapping("/users")
-	public List<User> getUsers(){
+	public List<User> getUsers() {
 
-		return Arrays.asList(new User("sam",5000L),
-				new User("ram",9999L));
+		return Arrays.asList(new User("sam", 5000L), new User("ram", 9999L));
 
 	}
-	
+
 	@PostMapping("/{userName}")
 	public User getUser(@PathVariable("userName") final String userName) {
-		return new User(userName,2000L);
+		return new User(userName, 2000L);
 	}
 
-	private class User{
-
+	private class User {
+		@ApiModelProperty(notes = " name of the User ")
 		private String user;
+
 		public User(String user, Long salary) {
 			super();
 			this.user = user;
 			this.salary = salary;
 		}
+
+		@ApiModelProperty(notes = " salary of the User ")
 		private Long salary;
 
 	}
